@@ -3,7 +3,7 @@
 
 ### Bazy danych
 
-Authors:
-Przemysław Kociuba
-Tomasz Kajda
+Authors:<br>
+   - Przemysław Kociuba <br>
+   - Tomasz Kajda
 
