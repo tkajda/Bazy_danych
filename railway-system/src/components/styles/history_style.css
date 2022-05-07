@@ -1,0 +1,21 @@
+.wrapper {
+    align-items: center;
+    text-align: center;
+
+}
+
+
+.ticket-list {
+    display:flex;
+    width:100%;
+    justify-content: center;
+}
+
+.ticket {
+    background-color: #fff;
+    height: 100px;
+    width: 80%;
+    border-radius:3%;
+    border: 1px solid black;
+
+}

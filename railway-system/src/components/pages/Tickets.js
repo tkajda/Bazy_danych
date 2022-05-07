@@ -45,13 +45,17 @@ function Tickets() {
   //     )}, [])
   // }
   
+  const x = 0;
+  const reloadUseEffect = () => {
+    x = Math.random();
+  }
 
 
   useEffect(() => {
     axios.get('https://jsonplaceholder.typicode.com/posts',
       {
         params: {
-          title: "qui est esse"
+          id: 1
         }
       })
       .then(response => {
@@ -63,7 +67,7 @@ function Tickets() {
         console.log(error);
       })
 
-    }, [])
+    }, [x])
   
 
 
@@ -117,14 +121,19 @@ function Tickets() {
           <option value="Przedzialowy">Przedzialowy</option>
           <option value="Bezprzedzialowy">Bezprzedzialowy</option>
         </select>
-        <button>Szukaj</button>
+        <button onClick={reloadUseEffect} >Szukaj</button>
 
       </form>
       <div>
         LIST OF TICKETS
+
+
         {
-        tickets.map(ticket => <div key={ticket.id}>{ticket.id}</div>) 
+        tickets.map(
+          ticket => <div key={ticket.id}>{ticket.title}</div>
+          ) 
         }
+
 
       </div>
       </div>
