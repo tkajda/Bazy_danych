@@ -5,10 +5,11 @@ import axios from 'axios'
 import bg from "../resources/idylla.jpg"
 
 class Przystanek {
-  constructor(station, arrivalTime, departureTime) {
+  constructor(station, arrivalTime, departureTime, id) {
     this.departure = departureTime
     this.arrivalTime = arrivalTime
     this.station = station
+    this.id = id
   }
 }
 
@@ -38,29 +39,32 @@ function AddRoute() {
 
   const addStop = (e) => {
     e.preventDefault();
-    const stop = new Przystanek(stopName, stopArrival, stopDeparture);
+    const stop = new Przystanek(stopName, stopArrival, stopDeparture, stops.length+1);
 
     const newStops = [...stops, stop]
     setStops(newStops);
   }
 
-  const postRouteToServer = () => {
-    const firstStop = new Przystanek(station, "00-00-00", mainDepartureTime);  
+  const postRouteToServer = (e) => {
+    e.preventDefault();
+    const firstStop = new Przystanek(station, "00-00-00", mainDepartureTime, 0);  
     const finalStops = [firstStop, ...stops]
     setStops(finalStops);
-      axios.post('http://localhost:8080?',
-      {
-        station,
-        destination,
-        date,
-        mainDepartureTime,
-        mainArrivalTime,
-        stops
-      })
-      .then( res => console.log(res))
-      .catch(error => {
-        console.log(error);
-      });
+    axios.post('http://localhost:8080?',
+    {
+      station,
+      destination,
+      date,
+      mainDepartureTime,
+      mainArrivalTime,
+      stops
+    })
+    .then( res => console.log(res))
+    .catch(error => {
+      console.log(error);
+    });
+    console.log('post request sent');
+    window.location.reload(false);
   }
 
 
@@ -168,7 +172,7 @@ function AddRoute() {
                     {
                       stops.map(
                         singleStop =>  {
-                        return <div className="stop-on-list" key={singleStop.station}> 
+                        return <div className="stop-on-list" key={singleStop.id}> 
                         <span>{singleStop.departure}</span>
                         <span>{singleStop.station}</span>
                         <span>{singleStop.arrivalTime}</span>  
@@ -180,7 +184,7 @@ function AddRoute() {
                   </div>
               </div>
         </div>
-        <button className="button-2" onClick={postRouteToServer()}>DODAJ TRASE</button>
+        <button className="button-2" onClick={e => postRouteToServer(e)}>DODAJ TRASE</button>
 
       </div>
       
