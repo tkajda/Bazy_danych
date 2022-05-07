@@ -2,6 +2,8 @@ import React, { useEffect } from 'react'
 import '../styles/tickets_style.css'
 import {useState} from 'react';
 import axios from 'axios'
+import bg from "../resources/idylla.jpg"
+
 
 function Tickets() {
 
@@ -137,6 +139,7 @@ function Tickets() {
 
       </div>
       </div>
+      <div className="background"><img src={bg}></img></div>
     </div>
 
   )

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import '../styles/history_style.css'
+import bg from "../resources/idylla.jpg"
 import {useState} from 'react';
 import axios from 'axios'
 
@@ -74,6 +75,7 @@ function History() {
           }
 
         </div>
+        <div className="background"><img src={bg}></img></div>
       </div>
 
   )

@@ -1,11 +1,14 @@
 import React from 'react';
+import logo from '../resources/LOGO.png'
+
 import {
   Nav,
   NavLink,
   Bars,
   NavMenu,
   NavBtn,
-  NavBtnLink
+  NavBtnLink,
+  NavLogo
 } from './NavbarElements';
 
 const Navbar = () => {
@@ -13,7 +16,7 @@ const Navbar = () => {
     <>
       <Nav>
         <NavLink to='/'>
-          LOGO
+          <NavLogo src={logo}></NavLogo>
         </NavLink>
         <Bars />
         <NavMenu>

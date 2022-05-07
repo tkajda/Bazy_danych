@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import '../styles/addRoute_style.css'
 import {useState} from 'react';
 import axios from 'axios'
+import bg from "../resources/idylla.jpg"
 
 class Przystanek {
   constructor(station, arrivalTime, departureTime) {
@@ -43,6 +44,27 @@ function AddRoute() {
     setStops(newStops);
   }
 
+  const postRouteToServer = () => {
+    const firstStop = new Przystanek(station, "00-00-00", mainDepartureTime);  
+    const finalStops = [firstStop, ...stops]
+    setStops(finalStops);
+
+      axios.post('http://localhost:8080?',
+      {
+        station,
+        destination,
+        date,
+        mainDepartureTime,
+        mainArrivalTime,
+        stops,
+      })
+      .then( res => console.log(res))
+      .catch(error => {
+        console.log(error);
+      });
+
+  }
+
 
 
 
@@ -50,7 +72,8 @@ function AddRoute() {
     <div className="wrapper">
       <h1>Dodaj trase</h1>
       <div className ="flex-menu">
-      <div className="column">
+      <div className="column-1">
+        <h2>Ogólne Informacje</h2>
         <form className = "Form">
 
             <span>
@@ -107,7 +130,6 @@ function AddRoute() {
         </div>
         <div className = "column">
           <div className="form-wrapper">
-              
               <div className="stopForm-wrapper">
                 <h2>Dodaj przystanek</h2>
                 <form className="stopForm">
@@ -135,12 +157,11 @@ function AddRoute() {
                     onChange={(e) => setStopDeparture(e.target.value)}
                     required/>
                   </span><br></br>
-                <button onClick={(e)=>{addStop(e)}}>Dodaj przystanek</button>
+                <button className="button-1" onClick={(e)=>{addStop(e)}}>Dodaj przystanek</button>
 
                 </form>
-                <button>DODAJ WSZYSTKO</button>
                 <div className = "stops-list">
-                  <div className="LIST STOPS">WSZYSTKIE PRZYSTANKI</div><br/>
+                  <div className="LIST-STOPS">WSZYSTKIE PRZYSTANKI</div><br/>
                     TRASA:<br/>
                     {station} -{'>'} {destination}<br/>
                     WYJAZD: {mainDepartureTime} <br/>
@@ -149,11 +170,11 @@ function AddRoute() {
                     {
                       stops.map(
                         singleStop =>  {
-                        return <div key={singleStop.stopName}> 
-                          {singleStop.departure}
-                          {singleStop.station}
-                          {singleStop.arrivalTime}
-                          </div>
+                        return <div className="stop-on-list" key={singleStop.station}> 
+                        <span>{singleStop.departure}</span>
+                        <span>{singleStop.station}</span>
+                        <span>{singleStop.arrivalTime}</span>  
+                        </div>
                         }
                       )
                     }
@@ -161,12 +182,12 @@ function AddRoute() {
                   </div>
               </div>
         </div>
+        <button className="button-2" onClick={postRouteToServer()}>DODAJ TRASE</button>
+
       </div>
       
-            
-              
-              
-          </div>
+        <div className="background"><img src={bg}></img></div>
+      </div>
     </div>
   )
 }
