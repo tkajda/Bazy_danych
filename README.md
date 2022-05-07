@@ -1,6 +1,9 @@
-# Bazy_danych
+# System biletowy dla kolei
 
-Przemysław Kociuba
-Tomasz Kajda
 
-System biletowy dla kolei
+### Bazy danych
+
+Authors:<br>
+   - Przemysław Kociuba <br>
+   - Tomasz Kajda
+
