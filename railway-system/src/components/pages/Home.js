@@ -3,7 +3,7 @@ import bg from "../resources/idylla.jpg"
 
 function Home() {
   return (
-    <div>THIS IS HOME
+    <div><h1>THIS IS HOME</h1>
       <div className="background"><img src={bg}></img></div>
     </div>
   )

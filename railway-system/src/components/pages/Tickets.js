@@ -76,69 +76,72 @@ function Tickets() {
 
 
   return (
-    <div>
+    <div className = "wrapper">
       <h1>Wybierz bilet</h1>
-      <div className="form-wrapper">
-      <form className = "Form">
-        <span>
-          <label>Skąd:</label>
-          <input
-            type="text" 
-            required
-            value={start}
-            onChange={(e) => setStart(e.target.value)}/>
-        </span>
-      
-        <span>
-        <label>Dokąd:</label>
-        <input 
-          type="text"
-          value={end}
-          onChange={(e) => setEnd(e.target.value)}
-          required/>
-        </span>
-        <span>
+      <div className ="flex-row-wrapper">
 
-        <label>Data:</label>
-        <input 
-          type="date"
-          min={disablePastDate()} 
-          required
-          value={date}
-          onChange={(e) => setDate(e.target.value)}/>
-        </span>
-        <span>
+        <div className="form-wrapper">
+          <form className = "Form">
+            <span>
+              <label>Skąd:</label>
+              <input
+                type="text" 
+                required
+                value={start}
+                onChange={(e) => setStart(e.target.value)}/>
+            </span>
           
-        <label>Godzina:</label>
-        <input 
-          type="time"
-          value={time}
-          onChange={(e) => setTime(e.target.value)}
-          required/>
-        </span>
+            <span>
+            <label>Dokąd:</label>
+            <input 
+              type="text"
+              value={end}
+              onChange={(e) => setEnd(e.target.value)}
+              required/>
+            </span>
+            <span>
 
-        <select 
-          value={type}
-          onChange={(e) => setType(e.target.value)}>
-          <option value="Przedzialowy">Przedzialowy</option>
-          <option value="Bezprzedzialowy">Bezprzedzialowy</option>
-        </select>
-        <button onClick={reloadUseEffect} >Szukaj</button>
+            <label>Data:</label>
+            <input 
+              type="date"
+              min={disablePastDate()} 
+              required
+              value={date}
+              onChange={(e) => setDate(e.target.value)}/>
+            </span>
+            <span>
+              
+            <label>Godzina:</label>
+            <input 
+              type="time"
+              value={time}
+              onChange={(e) => setTime(e.target.value)}
+              required/>
+            </span>
 
-      </form>
-      <div>
-        LIST OF TICKETS
+            <select 
+              value={type}
+              onChange={(e) => setType(e.target.value)}>
+              <option value="Przedzialowy">Przedzialowy</option>
+              <option value="Bezprzedzialowy">Bezprzedzialowy</option>
+            </select>
+            <button onClick={reloadUseEffect} >Szukaj</button>
+
+          </form>
+          <div className = "list-tickets">
+            LIST OF TICKETS
+
+            {
+            tickets.map(
+              ticket => <div className="singleTicket" key={ticket.id}>{ticket.title}</div>
+              ) 
+            }
 
 
-        {
-        tickets.map(
-          ticket => <div key={ticket.id}>{ticket.title}</div>
-          ) 
-        }
-
-
+          </div>
+        </div>
       </div>
-      </div>
+
       <div className="background"><img src={bg}></img></div>
     </div>
 
