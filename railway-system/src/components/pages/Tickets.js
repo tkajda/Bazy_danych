@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import '../styles/tickets_style.css'
 import {useState} from 'react';
-
+import axios from 'axios'
 
 function Tickets() {
 
@@ -18,6 +18,56 @@ function Tickets() {
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [type, setType] = useState('Przedzialowy');
+
+  const [tickets, setTickets] = useState([]);
+
+
+
+  // function fetchTickets() {
+  //   useEffect(() => {
+  //     axios.get('localhost:8080/routes/tickets',
+  //       {
+  //         params: {
+  //           start: {start},
+  //           end: {end},
+  //           date: {date},
+  //           time: {time}
+  //         }
+  //       }
+  //       .then(response => {
+  //         console.log(response)
+  //         setTickets({tickets: response.data})
+  //       }) 
+  //       .catch(error => {
+  //         console.log(error);
+  //       })
+  
+  //     )}, [])
+  // }
+  
+
+
+  useEffect(() => {
+    axios.get('https://jsonplaceholder.typicode.com/posts',
+      {
+        params: {
+          title: "qui est esse"
+        }
+      })
+      .then(response => {
+        console.log(response)
+        setTickets(response.data)
+        console.log(tickets);
+      }) 
+      .catch(error => {
+        console.log(error);
+      })
+
+    }, [])
+  
+
+
+
 
   return (
     <div>
@@ -69,8 +119,14 @@ function Tickets() {
         </select>
         <button>Szukaj</button>
 
-
       </form>
+      <div>
+        LIST OF TICKETS
+        {
+        tickets.map(ticket => <div key={ticket.id}>{ticket.id}</div>) 
+        }
+
+      </div>
       </div>
     </div>
 
