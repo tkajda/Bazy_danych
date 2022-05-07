@@ -48,7 +48,6 @@ function AddRoute() {
     const firstStop = new Przystanek(station, "00-00-00", mainDepartureTime);  
     const finalStops = [firstStop, ...stops]
     setStops(finalStops);
-
       axios.post('http://localhost:8080?',
       {
         station,
@@ -56,13 +55,12 @@ function AddRoute() {
         date,
         mainDepartureTime,
         mainArrivalTime,
-        stops,
+        stops
       })
       .then( res => console.log(res))
       .catch(error => {
         console.log(error);
       });
-
   }
 
 
