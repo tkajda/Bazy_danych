@@ -55,9 +55,6 @@ function History() {
     }, [x])
   
 
-
-
-
   return (
     <div className="wrapper">
       <h1>Twoje bilety</h1>
@@ -75,7 +72,7 @@ function History() {
               </div>
             ) ) 
           }
-          
+
         </div>
       </div>
 

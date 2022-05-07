@@ -1,0 +1,20 @@
+.wrapper {
+    height: 1000px;
+
+}
+
+.flex-menu {
+    display:flex;
+    flex-direction: row;
+    width:100%;
+    justify-content: space-around;
+    justify-items: space-around;
+}
+
+.stopForm {
+    display:flex;
+    flex-direction: row;
+    margin-bottom: 2rem;
+    padding: 5%;
+    background-color: yellow;
+}
