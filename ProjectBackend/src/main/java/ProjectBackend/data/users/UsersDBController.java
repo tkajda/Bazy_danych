@@ -12,23 +12,18 @@ public class UsersDBController {
     public UsersDBController(UserRepository userRepository){
         this.userRepository = userRepository;
     }
-    public boolean addUser(String username, String password){
-        if(this.userRepository.findByUsername(username).size()==1){
+    public boolean addUser(User user){
+        if(this.userRepository.findByUsername(user.getUsername()).size()==1){
             return false;
         }
-        this.userRepository.save(new User(username,password));
+        this.userRepository.save(user);
         return true;
     }
-    public String login(String username, String password){
+    public boolean login(String username, String password){
         List<User> users=this.userRepository.findByUsername(username);
         if(users.size()==0){
-            return "USERNAME NOT FOUND";
+            return false;
         }
-        if(users.get(0).password.equals(password)){
-            return "LOGIN OK";
-        }
-        else{
-            return "WRONG PASSWORD";
-        }
+        return users.get(0).password.equals(password);
     }
 }

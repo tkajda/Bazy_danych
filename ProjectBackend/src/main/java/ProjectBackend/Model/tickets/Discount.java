@@ -29,4 +29,12 @@ public class Discount {
     public void setDiscountValue(BigDecimal discountValue) {
         this.discountValue = discountValue;
     }
+
+    @Override
+    public String toString() {
+        return "Discount{" +
+                "discountName=" + discountName +
+                ", discountValue=" + discountValue +
+                '}';
+    }
 }

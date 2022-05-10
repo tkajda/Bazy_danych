@@ -1,12 +1,12 @@
 package ProjectBackend.webservice;
 
+import ProjectBackend.Model.users.User;
 import ProjectBackend.data.users.UsersDBController;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Service
 @RestController
@@ -18,8 +18,14 @@ public class LoginController {
     public LoginController(UsersDBController usersDBController){
         this.usersDBController=usersDBController;
     }
+
+    @CrossOrigin(origins="http://localhost:3000")
     @RequestMapping(path="/submit",method= RequestMethod.POST)
-    public String login(@RequestParam(value="username",required = true)String username, @RequestParam(value="password",required = true)String password){
-        return this.usersDBController.login(username,password);
+    public ResponseEntity<String> login(@RequestBody User user){
+        System.out.println(user.getUsername()+" "+user.getPassword());
+        if(this.usersDBController.login(user.getUsername(),user.getPassword())){
+            return ResponseEntity.ok().body(new Gson().toJson(user));
+        }
+        return ResponseEntity.status(555).body("{message:wrong login or password}");
     }
 }
