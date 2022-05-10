@@ -23,7 +23,7 @@ function App() {
         <Route path="/add-route" element= {<AddRoute />} />
         <Route path="/list" element= {<List />} />
         <Route path="/sign-up" element= {<SignUp />} />
-        <Route path="/sing-in" element= {<SignIn />} />
+        <Route path="/sign-in" element= {<SignIn />} />
       </Routes>
     </Router>
     </>

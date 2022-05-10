@@ -47,31 +47,33 @@ function Tickets() {
   //     )}, [])
   // }
   
-  const x = 0;
+  var x = 0;
   const reloadUseEffect = () => {
     x = Math.random();
   }
 
 
-  useEffect(() => {
-    axios.get('https://jsonplaceholder.typicode.com/posts',
+  //useEffect(, [x])
+  
+  const fetchRoutes = () => {
+    axios.get('http://localhost:8080/routes/find',
       {
-        params: {
-          id: 1
+        params:{
+          firstStation: String(start),
+          lastStation:String(end),
+          departureTime:String(time),
+          travelDate:String(date)
         }
       })
       .then(response => {
         console.log(response)
         setTickets(response.data)
-        console.log(tickets);
       }) 
       .catch(error => {
         console.log(error);
       })
 
-    }, [x])
-  
-
+    }
 
 
 
@@ -125,7 +127,7 @@ function Tickets() {
               <option value="Przedzialowy">Przedzialowy</option>
               <option value="Bezprzedzialowy">Bezprzedzialowy</option>
             </select>
-            <button onClick={reloadUseEffect} >Szukaj</button>
+            <button type="button" onClick={fetchRoutes} >Szukaj</button>
 
           </form>
           <div className = "list-tickets">
@@ -133,7 +135,13 @@ function Tickets() {
 
             {
             tickets.map(
-              ticket => <div className="singleTicket" key={ticket.id}>{ticket.title}</div>
+              ticket => <div className="singleTicket" key={ticket.id}>
+                  {ticket.firstStation}<br></br>
+                  {ticket.lastStation} <br></br>
+                  {ticket.departureTime}  <br></br>
+                  {ticket.arrivalTime} <br></br>
+                  <button>Wybierz</button>
+                </div>
               ) 
             }
 
