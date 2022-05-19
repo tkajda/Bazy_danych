@@ -5,11 +5,13 @@ import axios from 'axios'
 import bg from "../resources/idylla.jpg"
 
 class Przystanek {
-  constructor(station, arrivalTime, departureTime, id) {
+  constructor(station, arrivalTime, departureTime, id,compartmentSeats=0,nonCompartmentSeats=0) {
     this.departureTime = departureTime
     this.arrivalTime = arrivalTime
     this.stationName = station
     this.id = id
+    this.compartmentSeats = compartmentSeats
+    this.nonCompartmentSeats =nonCompartmentSeats
   }
 }
 
@@ -32,6 +34,8 @@ function AddRoute() {
   const [stopName,  setStopName] = useState('');
   const [stopArrival,  setStopArrival] = useState('');
   const [stopDeparture,  setStopDeparture] = useState('');
+  const [compartmentSeats,  setCompartmentSeats] = useState('');
+  const [nonCompartmentSeats,  setNonCompartmentSeats] = useState('');
 
 
 
@@ -97,6 +101,23 @@ function AddRoute() {
                 onChange={(e) => setTrainNumber(e.target.value)}
                 required/>
             </span>
+            <span>
+              <label>Ilość miejsc przedziałowych:</label>
+              <input 
+                type="text"
+                value={compartmentSeats}
+                onChange={(e) => setCompartmentSeats(e.target.value)}
+                required/>
+            </span>
+            <span>
+              <label>Ilość miejsc bezprzedziałowych:</label>
+              <input 
+                type="text"
+                value={nonCompartmentSeats}
+                onChange={(e) => setNonCompartmentSeats(e.target.value)}
+                required/>
+            </span>
+            
             <span>
               <label>Stacja początkowa:</label>
               <input 
