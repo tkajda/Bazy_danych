@@ -7,6 +7,8 @@ public class TrainStop {
     private String stationName;
     private String arrivalTime;
     private String departureTime;
+    private Integer compartmentSeats;
+    private Integer nonCompartmentSeats;
 
     public TrainStop(String stationName, String arrivalTime, String departureTime) {
         this.stationName = stationName;

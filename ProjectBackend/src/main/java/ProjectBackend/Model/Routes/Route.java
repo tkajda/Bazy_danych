@@ -2,6 +2,7 @@ package ProjectBackend.Model.Routes;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.sql.Date;
 
@@ -10,6 +11,11 @@ public class Route {
     private Date travelDate;
     public ArrayList<TrainStop> trainStops;
     private Train train;
+    private TrainStop station;
+    private TrainStop desitnation;
+    private Time departureTime;
+    private Time arrivalTime;
+
     public ArrayList<Integer> takenCompartmentSeats;
     public ArrayList<Integer> takenNonCompartmentSeats;
 

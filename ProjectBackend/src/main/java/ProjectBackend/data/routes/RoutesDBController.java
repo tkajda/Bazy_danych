@@ -25,11 +25,19 @@ public class RoutesDBController {
     }
 
     public boolean saveRoute(Route route){
+        System.out.println(route.getTravelDate());
         this.routesRepository.save(route);
         return true;
     }
-    public List<RouteFinderParams> getRoutes(){
-        RouteFinderParams params=new RouteFinderParams("Kielce","Warszawa","10:00:00","", Date.valueOf("2022-05-07"));
+    public List<RouteFinderParams> getRoutes(RouteFinderParams params){
+//        RouteFinderParams params=new RouteFinderParams("Kielce","Warszawa","10:00:00","", Date.valueOf("2022-05-07"));
+        String startCity = params.getFirstStation();
+        String lastCity = params.getLastStation();
+        String departureTime = params.getDepartureTime();
+        Date date = params.getTravelDate();
+
+//        routesRepository
+
         return this.routesRepository.getRoutes(
                 params.getFirstStation(),
                 params.getLastStation(),

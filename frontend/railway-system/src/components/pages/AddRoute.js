@@ -6,9 +6,9 @@ import bg from "../resources/idylla.jpg"
 
 class Przystanek {
   constructor(station, arrivalTime, departureTime, id) {
-    this.departure = departureTime
+    this.departureTime = departureTime
     this.arrivalTime = arrivalTime
-    this.station = station
+    this.stationName = station
     this.id = id
   }
 }
@@ -50,21 +50,23 @@ function AddRoute() {
     const firstStop = new Przystanek(station, "00-00-00", mainDepartureTime, 0);  
     const finalStops = [firstStop, ...stops]
     setStops(finalStops);
-    axios.post('http://localhost:8080?',
+    console.log(finalStops)
+    axios.post('http://localhost:8080/routes/add' ,
     {
-      station,
-      destination,
-      date,
-      mainDepartureTime,
-      mainArrivalTime,
-      stops
+      "travelData": date,
+      "trainStops": finalStops,
+      "train": trainNumber,
+      "station": station,
+      "destination": destination,
+      "departureTime": mainDepartureTime,
+      "arrivalTime": mainArrivalTime,
+
     })
     .then( res => console.log(res))
     .catch(error => {
       console.log(error);
     });
     console.log('post request sent');
-    window.location.reload(false);
   }
 
 

@@ -3,11 +3,18 @@ package ProjectBackend.Model.Routes;
 public class Train {
     private Integer compartmentSeats;
     private Integer nonCompartmentSeats;
+    private String number;
 
     public Train(Integer compartmentSeats, Integer nonCompartmentSeats) {
         this.compartmentSeats = compartmentSeats;
         this.nonCompartmentSeats = nonCompartmentSeats;
     }
+
+    public Train(String id){
+        this.number = id;
+    }
+
+
 
     public Integer getCompartmentSeats() {
         return compartmentSeats;
