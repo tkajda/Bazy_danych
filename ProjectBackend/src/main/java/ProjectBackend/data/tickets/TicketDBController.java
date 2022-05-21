@@ -23,4 +23,5 @@ public class TicketDBController {
     public List<Ticket> getTickets(Integer userId){
         return this.ticketRepository.getTicketsByUserId(userId);
     }
+
 }

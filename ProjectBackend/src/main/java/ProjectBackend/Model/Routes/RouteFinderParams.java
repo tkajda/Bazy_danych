@@ -12,15 +12,17 @@ public class RouteFinderParams {
     private String departureTime;
     private String arrivalTime;
     private Date travelDate;
+    private Train train;
 
-
-    public RouteFinderParams(String firstStation, String lastStation, String departureTime, String arrivalTime, Date travelDate) {
+    public RouteFinderParams(String firstStation, String lastStation, String departureTime, String arrivalTime, Date travelDate, Train train) {
         this.firstStation = firstStation;
         this.lastStation = lastStation;
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;
         this.travelDate = travelDate;
+        this.train = train;
     }
+
 
     public String getFirstStation() {
         return firstStation;

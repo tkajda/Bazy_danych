@@ -12,24 +12,6 @@ function History() {
 
   const myId = 0;
 
-  // function fetchTickets() {
-  //   useEffect(() => {
-  //     axios.get('localhost:8080/routes/tickets',
-  //       {
-  //         params: {
-  //           id: {myId}
-  //         }
-  //       }
-  //       .then(response => {
-  //         console.log(response)
-  //         setTickets({tickets: response.data})
-  //       }) 
-  //       .catch(error => {
-  //         console.log(error);
-  //       })
-  
-  //     )}, [])
-  // }
   
   useEffect(
     () => {axios.get('http://localhost:8080/routes/tickets',

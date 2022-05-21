@@ -43,7 +43,7 @@ function AddRoute() {
 
   const addStop = (e) => {
     e.preventDefault();
-    const stop = new Przystanek(stopName, stopArrival, stopDeparture, stops.length+1);
+    const stop = new Przystanek(stopName, stopArrival, stopDeparture, stops.length+1, compartmentSeats,nonCompartmentSeats);
 
     const newStops = [...stops, stop]
     setStops(newStops);
@@ -51,8 +51,10 @@ function AddRoute() {
 
   const postRouteToServer = (e) => {
     e.preventDefault();
-    const firstStop = new Przystanek(station, "00-00-00", mainDepartureTime, 0);  
-    const finalStops = [firstStop, ...stops]
+    const firstStop = new Przystanek(station, mainArrivalTime, mainDepartureTime, 0, compartmentSeats,nonCompartmentSeats);  
+    const destinationStop = new Przystanek(destination, mainArrivalTime, "00000000", stops.length+2, 0, 0)
+    const finalStops = [firstStop, ...stops, destinationStop]
+    
     setStops(finalStops);
     console.log(finalStops)
     axios.post('http://localhost:8080/routes/add' ,
@@ -71,6 +73,7 @@ function AddRoute() {
       console.log(error);
     });
     console.log('post request sent');
+    document.location.reload();
   }
 
 
@@ -196,9 +199,9 @@ function AddRoute() {
                       stops.map(
                         singleStop =>  {
                         return <div className="stop-on-list" key={singleStop.id}> 
-                        <span>{singleStop.departure}</span>
-                        <span>{singleStop.station}</span>
-                        <span>{singleStop.arrivalTime}</span>  
+                        <span>{singleStop.arrivalTime}</span>
+                        <span>{singleStop.stationName}</span>
+                        <span>{singleStop.departureTime}</span>  
                         </div>
                         }
                       )

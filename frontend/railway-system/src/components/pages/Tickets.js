@@ -25,35 +25,6 @@ function Tickets() {
 
 
 
-  // function fetchTickets() {
-  //   useEffect(() => {
-  //     axios.get('localhost:8080/routes/tickets',
-  //       {
-  //         params: {
-  //           start: {start},
-  //           end: {end},
-  //           date: {date},
-  //           time: {time}
-  //         }
-  //       }
-  //       .then(response => {
-  //         console.log(response)
-  //         setTickets({tickets: response.data})
-  //       }) 
-  //       .catch(error => {
-  //         console.log(error);
-  //       })
-  
-  //     )}, [])
-  // }
-  
-  var x = 0;
-  const reloadUseEffect = () => {
-    x = Math.random();
-  }
-
-
-  //useEffect(, [x])
   
   const fetchRoutes = () => {
     axios.get('http://localhost:8080/routes/find',
@@ -75,6 +46,30 @@ function Tickets() {
 
     }
 
+    const buyTicket = (e, index) => {
+      console.log(tickets[index])
+      console.log('hej')
+      axios.post('http://localhost:8080/routes/ticket', 
+      {
+        trainRouteID: 1,
+        startingStation: 'Kraków',
+        endingStation: 'Poznań',
+        discount: 'STUDENT',
+        ticketDate: "22-05-2022",
+        travelerName: "Jan",
+        travelerSurname: "Kowalski",
+        travelerEmail: "ab2@aa.com",
+        userId: 1
+      })
+      .then(response => {
+        console.log(response)
+      })
+      .catch(error=> {
+        console.log(error);
+      })
+
+
+    }
 
 
   return (
@@ -131,16 +126,16 @@ function Tickets() {
 
           </form>
           <div className = "list-tickets">
-            LIST OF TICKETS
+            DOSTĘPNE BILETY
 
             {
             tickets.map(
-              ticket => <div className="singleTicket" key={ticket.id}>
+              (ticket, index) => <div className="singleTicket" key={ticket.id}>
                   {ticket.firstStation}<br></br>
                   {ticket.lastStation} <br></br>
                   {ticket.departureTime}  <br></br>
                   {ticket.arrivalTime} <br></br>
-                  <button>Wybierz</button>
+                  <button onClick={(e) => buyTicket(e, index)}>Wybierz</button>
                 </div>
               ) 
             }

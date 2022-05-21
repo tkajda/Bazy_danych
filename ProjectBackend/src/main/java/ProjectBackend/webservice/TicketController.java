@@ -28,6 +28,7 @@ public class TicketController {
     @CrossOrigin(origins="http://localhost:3000")
     @RequestMapping(path="/ticket",method= RequestMethod.POST)
     public ResponseEntity<String> buyTicket(@RequestBody Ticket ticket){
+        System.out.println(ticket.toString());
         if(!ticketDBController.saveTicket(ticket)){
             return ResponseEntity.status(540).body("{Response:Ticket cannot be bought}");
         }
@@ -37,6 +38,7 @@ public class TicketController {
     @CrossOrigin(origins="http://localhost:3000")
     @RequestMapping(path="/tickets",method=RequestMethod.GET)
     public ResponseEntity<String> getTickets(UserIdentifier userIdentifier){
+        System.out.println(userIdentifier.getUserID());
         return ResponseEntity.ok().body(new Gson().toJson(this.ticketDBController.getTickets(userIdentifier.getUserID())));
     }
 }
