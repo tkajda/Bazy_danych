@@ -7,7 +7,7 @@ import ProjectBackend.data.tickets.TicketDBController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 @Configuration

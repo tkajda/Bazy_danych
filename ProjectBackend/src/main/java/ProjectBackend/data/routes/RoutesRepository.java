@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.data.mongodb.repository.Aggregation;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 public interface RoutesRepository extends MongoRepository<Route ,String> {

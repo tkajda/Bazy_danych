@@ -16,7 +16,7 @@ import org.springframework.http.converter.json.GsonHttpMessageConverter;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
+import java.sql.Date;
 import java.math.BigDecimal;
 
 @Service

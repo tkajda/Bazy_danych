@@ -19,7 +19,6 @@ public class TicketDBController {
     }
     public boolean saveTicket(Ticket ticket){
         this.ticketRepository.save(ticket);
-        this.routesRepository.buyTicket(ticket.getTrainRouteID(), ticket.getStartingStation(), ticket.getEndingStation());
         return true;
     }
     public List<Ticket> getTickets(Integer userId){

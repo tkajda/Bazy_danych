@@ -2,7 +2,7 @@ package ProjectBackend.Model.Routes;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Date;
+import java.sql.Date;
 
 
 @Document("Routes")
