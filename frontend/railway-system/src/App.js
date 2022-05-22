@@ -7,7 +7,8 @@ import AddRoute from './components/pages/AddRoute'
 import SignIn from './components/pages/SignIn'
 import SignUp from './components/pages/SignUp'
 import List from './components/pages/List'
-
+import BuyTicket from './components/pages/BuyTicketChoice'
+import BuyTicketForm from './components/pages/BuyTicketForm'
 
 function App() {
   return (
@@ -24,6 +25,8 @@ function App() {
         <Route path="/list" element= {<List />} />
         <Route path="/sign-up" element= {<SignUp />} />
         <Route path="/sign-in" element= {<SignIn />} />
+        <Route path="/tickets/buy" element={<BuyTicket />} />
+        <Route path="/tickets/form" element={<BuyTicketForm/>}></Route>
       </Routes>
     </Router>
     </>
