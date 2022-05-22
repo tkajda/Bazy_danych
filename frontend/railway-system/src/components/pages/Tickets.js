@@ -3,9 +3,19 @@ import '../styles/tickets_style.css'
 import {useState} from 'react';
 import axios from 'axios'
 import bg from "../resources/idylla.jpg"
+import {connect} from 'react-redux';
+import {
+  Nav,
+  NavLink,
+  Bars,
+  NavMenu,
+  NavBtn,
+  NavBtnLink,
+  NavLogo,
+} from '../Navbar/NavbarElements';
+import { setRoute } from '../../reducers/actions';
 
-
-function Tickets() {
+function Tickets({isLoggedIn, changeRoute}) {
 
   const disablePastDate = () => {
     const today = new Date();
@@ -22,9 +32,11 @@ function Tickets() {
   const [type, setType] = useState('Przedzialowy');
 
   const [tickets, setTickets] = useState([]);
-
-
-
+  
+  var x = 0;
+  const reloadUseEffect = () => {
+    x = Math.random();
+  }
   
   const fetchRoutes = () => {
     axios.get('http://localhost:8080/routes/find',
@@ -46,30 +58,6 @@ function Tickets() {
 
     }
 
-    const buyTicket = (e, index) => {
-      console.log(tickets[index])
-      console.log('hej')
-      axios.post('http://localhost:8080/routes/ticket', 
-      {
-        trainRouteID: 1,
-        startingStation: 'Kraków',
-        endingStation: 'Poznań',
-        discount: 'STUDENT',
-        ticketDate: "22-05-2022",
-        travelerName: "Jan",
-        travelerSurname: "Kowalski",
-        travelerEmail: "ab2@aa.com",
-        userId: 1
-      })
-      .then(response => {
-        console.log(response)
-      })
-      .catch(error=> {
-        console.log(error);
-      })
-
-
-    }
 
 
   return (
@@ -130,12 +118,13 @@ function Tickets() {
 
             {
             tickets.map(
-              (ticket, index) => <div className="singleTicket" key={ticket.id}>
+              ticket => <div className="singleTicket" key={ticket.id}>
                   {ticket.firstStation}<br></br>
                   {ticket.lastStation} <br></br>
                   {ticket.departureTime}  <br></br>
                   {ticket.arrivalTime} <br></br>
-                  <button onClick={(e) => buyTicket(e, index)}>Wybierz</button>
+                  <button type="button" onClick={() => changeRoute(ticket)}></button>
+                  {!isLoggedIn.isLoggedIn?<NavLink onClick={() => changeRoute(ticket)} to={{pathname:'/tickets/form'}}>Wybierz</NavLink>:<NavLink to={{pathname:'/tickets/form'}} onClick={() => changeRoute(ticket)}>Wybierz</NavLink>}
                 </div>
               ) 
             }
@@ -150,5 +139,10 @@ function Tickets() {
 
   )
 }
-
-export default Tickets
+const mapStateToProps = state =>({
+  isLoggedIn:state.authReducer
+})
+const mapDispatchToProps = dispatch  => ({
+  changeRoute: (route) => dispatch(setRoute(route))
+})
+export default connect(mapStateToProps,mapDispatchToProps)(Tickets)

@@ -1,6 +1,8 @@
 import React from 'react';
 import logo from '../resources/LOGO.png'
-
+import {connect} from 'react-redux';
+import { loggedOut } from '../../reducers/actions';
+import {configureStore} from '../../store'
 import {
   Nav,
   NavLink,
@@ -8,10 +10,12 @@ import {
   NavMenu,
   NavBtn,
   NavBtnLink,
-  NavLogo
+  NavLogo,
 } from './NavbarElements';
 
-const Navbar = () => {
+const Navbar = ({isLoggedIn,logOut}) => {
+  console.log(isLoggedIn);
+  
   return (
     <>
       <Nav>
@@ -21,17 +25,24 @@ const Navbar = () => {
         <Bars />
         <NavMenu>
           <NavLink to='/tickets' >BUY TICKETS</NavLink>
-          <NavLink to='/history' >TICKETS HISTORY</NavLink>
+          {isLoggedIn.isLoggedIn?<NavLink to='/history' >TICKETS HISTORY</NavLink>:<></>}
           <NavLink to='/add-route' >ADD ROUTE</NavLink>
-          <NavLink to='/list' >LIST</NavLink>
-          <NavLink to='/sign-up' >SIGN UP</NavLink>
+          {!isLoggedIn.isLoggedIn?<NavLink to={{pathname:'sign-up'}}>SIGN UP</NavLink>:<></>}
         </NavMenu>
         <NavBtn>
-          <NavBtnLink to='/sign-in'>Sign In</NavBtnLink>
+        {!isLoggedIn.isLoggedIn?<NavBtnLink to={{pathname:'/sign-in'}}>Sign In</NavBtnLink>:<></>}
+        {isLoggedIn.isLoggedIn?<NavBtnLink onClick={()=> logOut()} to={{pathname:'/'}}>Sign Out</NavBtnLink>:<></>}
+          
+          
         </NavBtn>
       </Nav>
     </>
   );
 };
-
-export default Navbar;
+const mapStateToProps = state =>({
+  isLoggedIn:state.authReducer
+})
+const mapDispatchToProps = dispatch  => ({
+  logOut: (response) => dispatch(loggedOut(response))
+})
+export default connect(mapStateToProps)(Navbar);

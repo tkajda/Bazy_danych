@@ -2,6 +2,12 @@ package ProjectBackend.data.routes;
 
 import ProjectBackend.Model.Routes.Route;
 import ProjectBackend.Model.Routes.RouteFinderParams;
+import ProjectBackend.Model.tickets.Ticket;
+import org.springframework.data.mongodb.core.BulkOperations;
+import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.data.mongodb.repository.Aggregation;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
@@ -9,6 +15,7 @@ import java.util.Date;
 import java.util.List;
 
 public interface RoutesRepository extends MongoRepository<Route ,String> {
+
     @Aggregation(pipeline={
             "{$unwind:'$trainStops'}",
             "{$match:{'trainStops.stationName':{$in:[?0,?1]}}}",

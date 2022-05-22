@@ -4,6 +4,15 @@ import {useState} from 'react';
 import axios from 'axios'
 import {connect} from 'react-redux';
 import {loggedIn} from '../../reducers/actions'
+import {
+  Nav,
+  NavLink,
+  Bars,
+  NavMenu,
+  NavBtn,
+  NavBtnLink,
+  NavLogo,
+} from '../Navbar/NavbarElements';
 function SignIn({isLoggedIn,onLogIn}) {
 
   const [username, setUsername] = useState('');
@@ -32,29 +41,20 @@ function SignIn({isLoggedIn,onLogIn}) {
     <div>SignIn
       <div className="background"><img src={bg}></img></div>
       <div className="form-wrapper">
-          <form className = "Form">
-            <span>
-              <label>Username</label><br></br>
-              <input
-                type="text" 
-                required
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}/>
-            </span>
+            <form className = "Form">
+                Sign in before buying the ticket in order to:
+                <ul>
+                    <li>Buy tickets quickly</li>
+                    <li>Have access to your tickets</li>
+                    
+                </ul>
           
-            <span>
-            <label>Password</label><br></br>
-            <input 
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required/>
-            </span>
             
 
-            <button type="button" onClick={signIn} >Sign up</button>
+                <NavBtnLink to='/sign-in' >SIGN IN</NavBtnLink>
+                <NavBtnLink to='/tickets/form' >buy logged out</NavBtnLink>
 
-          </form>
+             </form>
 
         </div>
 
