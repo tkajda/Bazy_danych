@@ -23,8 +23,9 @@ public class LoginController {
     @RequestMapping(path="/submit",method= RequestMethod.POST)
     public ResponseEntity<String> login(@RequestBody User user){
         System.out.println(user.getUsername()+" "+user.getPassword());
-        if(this.usersDBController.login(user.getUsername(),user.getPassword())){
-            return ResponseEntity.ok().body(new Gson().toJson(user));
+        User loggedUser=this.usersDBController.login(user.getUsername(),user.getPassword());
+        if(loggedUser.getUserID()!=null){
+            return ResponseEntity.ok().body(new Gson().toJson(loggedUser));
         }
         return ResponseEntity.status(555).body("{message:wrong login or password}");
     }

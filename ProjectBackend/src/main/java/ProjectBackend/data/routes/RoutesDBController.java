@@ -4,7 +4,7 @@ import ProjectBackend.Model.Routes.Route;
 import ProjectBackend.Model.Routes.RouteFinderParams;
 import org.springframework.context.annotation.Configuration;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 @Configuration
@@ -25,14 +25,19 @@ public class RoutesDBController {
     }
 
     public boolean saveRoute(Route route){
+        System.out.println(route.getTravelDate());
         this.routesRepository.save(route);
         return true;
     }
     public List<RouteFinderParams> getRoutes(RouteFinderParams params){
-
         return this.routesRepository.getRoutes(
                 params.getFirstStation(),
                 params.getLastStation(),
-                params.getDepartureTime());
+                params.getDepartureTime(),
+                params.getTravelDate());
+    }
+
+    public List<Route> getRouteById(String routeId){
+        return this.routesRepository.getRoutesByRouteID(routeId);
     }
 }

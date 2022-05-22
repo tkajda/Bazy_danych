@@ -1,39 +1,28 @@
 package ProjectBackend.Model.Routes;
 
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
 
 
 @Document("Routes")
-public class RouteFinderParams {
-    @Id
-    private String routeID;
+public class RouteAdderParams {
     private String firstStation;
     private String lastStation;
     private String departureTime;
     private String arrivalTime;
     private Date travelDate;
+    private Train train;
 
-
-
-    public RouteFinderParams(String routeID, String firstStation, String lastStation, String departureTime, String arrivalTime, Date travelDate) {
-        this.routeID = routeID;
+    public RouteAdderParams(String firstStation, String lastStation, String departureTime, String arrivalTime, Date travelDate, Train train) {
         this.firstStation = firstStation;
         this.lastStation = lastStation;
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;
         this.travelDate = travelDate;
+        this.train = train;
     }
 
-    public String getRouteID() {
-        return routeID;
-    }
-
-    public void setRouteID(String routeID) {
-        this.routeID = routeID;
-    }
 
     public String getFirstStation() {
         return firstStation;
@@ -74,6 +63,15 @@ public class RouteFinderParams {
     public void setTravelDate(Date travelDate) {
         this.travelDate = travelDate;
     }
+
+    public Train getTrain() {
+        return train;
+    }
+
+    public void setTrain(Train train) {
+        this.train = train;
+    }
+
 
     @Override
     public String toString() {

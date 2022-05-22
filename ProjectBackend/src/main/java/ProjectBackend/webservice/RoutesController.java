@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 
 @Service
@@ -28,13 +28,14 @@ public class RoutesController {
     @CrossOrigin(origins="http://localhost:3000")
     @RequestMapping("/find")
     public ResponseEntity<String> findConnection(RouteFinderParams params){
+        System.out.println(params.toString());
         return ResponseEntity.ok().body(new Gson().toJson(routesDBController.getRoutes(params)));
     }
 
     @CrossOrigin(origins="http://localhost:3000")
     @RequestMapping("/add")
     public ResponseEntity<String> addConnection(@RequestBody Route route){
-
+        System.out.println(route.getTrainStops());
         if(!this.routesDBController.saveRoute(route)){
             return ResponseEntity.status(550).body("{Response:The route could not be added}");
         }

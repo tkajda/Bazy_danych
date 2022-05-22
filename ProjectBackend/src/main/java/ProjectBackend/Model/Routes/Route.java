@@ -1,20 +1,20 @@
 package ProjectBackend.Model.Routes;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.sql.Time;
 import java.util.ArrayList;
-import java.sql.Date;
+import java.util.Date;
 
 @Document("Routes")
 public class Route {
+    @Id
+    private String routeID;
+
     private Date travelDate;
     public ArrayList<TrainStop> trainStops;
     private Train train;
-    private TrainStop station;
-    private TrainStop desitnation;
-    private Time departureTime;
-    private Time arrivalTime;
 
     public ArrayList<Integer> takenCompartmentSeats;
     public ArrayList<Integer> takenNonCompartmentSeats;

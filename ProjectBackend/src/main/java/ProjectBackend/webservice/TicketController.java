@@ -5,6 +5,7 @@ import ProjectBackend.Model.tickets.KnownDiscountName;
 import ProjectBackend.Model.tickets.Ticket;
 import ProjectBackend.Model.users.User;
 import ProjectBackend.Model.users.UserIdentifier;
+import ProjectBackend.data.logic.TicketLogic;
 import ProjectBackend.data.tickets.TicketDBController;
 import ProjectBackend.data.tickets.TicketRepository;
 import com.google.gson.Gson;
@@ -15,21 +16,24 @@ import org.springframework.http.converter.json.GsonHttpMessageConverter;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.util.Date;
+import java.math.BigDecimal;
 
 @Service
 @RestController
 @RequestMapping("/routes")
 public class TicketController {
     @Autowired
-    TicketDBController ticketDBController;
-    public TicketController(TicketDBController ticketDBController){this.ticketDBController=ticketDBController;}
+    TicketLogic ticketLogic;
+    public TicketController(TicketLogic ticketLogic){
+        this.ticketLogic=ticketLogic;
+    }
     @CrossOrigin(origins="http://localhost:3000")
     @RequestMapping(path="/ticket",method= RequestMethod.POST)
     public ResponseEntity<String> buyTicket(@RequestBody Ticket ticket){
         System.out.println(ticket.toString());
-        if(!ticketDBController.saveTicket(ticket)){
+        Ticket reservedTicket=ticketLogic.reserveTicket(ticket);
+        if(reservedTicket.getSeatNo()==null){
             return ResponseEntity.status(540).body("{Response:Ticket cannot be bought}");
         }
         return ResponseEntity.ok().body(new Gson().toJson(ticket));
@@ -39,6 +43,6 @@ public class TicketController {
     @RequestMapping(path="/tickets",method=RequestMethod.GET)
     public ResponseEntity<String> getTickets(UserIdentifier userIdentifier){
         System.out.println(userIdentifier.getUserID());
-        return ResponseEntity.ok().body(new Gson().toJson(this.ticketDBController.getTickets(userIdentifier.getUserID())));
+        return ResponseEntity.ok().body(new Gson().toJson(this.ticketLogic.getTickets(userIdentifier.getUserID())));
     }
 }

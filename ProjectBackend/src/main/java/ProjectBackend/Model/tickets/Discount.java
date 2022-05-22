@@ -13,6 +13,17 @@ public class Discount {
         this.discountName = discountName;
         this.discountValue = discountName.getDiscount();
     }
+    public Discount(String discountName){
+        this.discountName=KnownDiscountName.valueOf(discountName);
+        this.discountValue=this.discountName.getDiscount();
+    }
+    public Discount(KnownDiscountName discountName, BigDecimal discountValue){
+        this.discountName=discountName;
+        this.discountValue=discountValue;
+    }
+    public Discount(){
+
+    }
 
     public KnownDiscountName getDiscountName() {
         return discountName;

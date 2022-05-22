@@ -17,4 +17,5 @@ public enum KnownDiscountName {
         }
         return BigDecimal.ZERO;
     }
+
 }
