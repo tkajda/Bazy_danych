@@ -135,6 +135,7 @@ function Tickets() {
                   {ticket.lastStation} <br></br>
                   {ticket.departureTime}  <br></br>
                   {ticket.arrivalTime} <br></br>
+                  {ticket.id} <br></br>
                   <button onClick={(e) => buyTicket(e, index)}>Wybierz</button>
                 </div>
               ) 

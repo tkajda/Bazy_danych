@@ -52,7 +52,7 @@ function AddRoute() {
   const postRouteToServer = (e) => {
     e.preventDefault();
     const firstStop = new Przystanek(station, mainArrivalTime, mainDepartureTime, 0, compartmentSeats,nonCompartmentSeats);  
-    const destinationStop = new Przystanek(destination, mainArrivalTime, "00000000", stops.length+2, 0, 0)
+    const destinationStop = new Przystanek(destination, mainArrivalTime, mainArrivalTime, stops.length+2, 0, 0)
     const finalStops = [firstStop, ...stops, destinationStop]
     
     setStops(finalStops);

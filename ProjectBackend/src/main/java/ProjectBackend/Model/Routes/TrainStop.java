@@ -10,10 +10,12 @@ public class TrainStop {
     private Integer compartmentSeats;
     private Integer nonCompartmentSeats;
 
-    public TrainStop(String stationName, String arrivalTime, String departureTime) {
+    public TrainStop(String stationName, String arrivalTime, String departureTime, Integer compartmentSeats,  Integer nonCompartmentSeats) {
         this.stationName = stationName;
         this.arrivalTime = arrivalTime;
         this.departureTime = departureTime;
+        this.compartmentSeats = compartmentSeats;
+        this.nonCompartmentSeats = nonCompartmentSeats;
     }
 
     public String getStationName() {
