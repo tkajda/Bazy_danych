@@ -82,4 +82,12 @@
 |       address |
 ---
 ### `Rozwiązania: `
+   Główne narzędzie dla przetwarzania zapytań z frontendu na serwerze stanowi Spring Boot. Przy konfiguracji go z bazami danych operacje dodawania __Route__ do kolekcji __Routes__, __ticket__ do kolekcji __tickets__ sprowadzają się do przemapowania ciał zapytań na obiekty oraz dodaniu ich jako nowe dokuemnty do MongoDB przy użyciu intefejsu `MongoRepositoy`. Analogicznie dodanie __user__ do tabeli __Users__ jest dodaniem rekordu korzystając z interfejsu `CrudRepository`.
 
+Logowanie sprwodza się do sprawdzenia w Postgres, czy użytkownik o podanym loginie i haśle istnieje w bazie. Natomiast rejestracja to dodanie użytkownika do bazy.
+
+Użytkownik może zobaczyć dostępne trasy dla wybranych dla siebie przystanków. Operacja to odbywa się przez wywołanie konkretnego `@Aggregation pipeline` na kolekcji Routes
+//TODO
+
+Użytkownik ma możliwość zakupu biletu na wybraną trasę, jezeli znajdują się na niej wolne miejsca, w wybranym przez użytkownika komforcie.
+Funkcjonalność tę realizuje metoda `public boolean reserveTicket(Ticket ticket)` klasy `TicketLogic` przy pomocy narzędzia _MongoTemplate_. Pomyślna rezerwacja biletu jest jednoznacza ze zmniejszeniem ilości wolnych miejsc na trasie oraz dodaniem biletu do kolekcji __tickets__. W przypadku niepowodzenia miejsca są "dodawane" z powrotem, a bilet nie jest widoczny w bazie.
