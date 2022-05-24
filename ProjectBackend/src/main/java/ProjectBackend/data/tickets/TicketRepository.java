@@ -11,7 +11,6 @@ import java.util.List;
 
 public interface TicketRepository extends MongoRepository<Ticket,String> {
 
-
     @Query("{'userId':?0}")
     public List<Ticket> getTicketsByUserId(Integer userId);
 

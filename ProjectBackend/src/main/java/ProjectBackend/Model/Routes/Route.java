@@ -12,27 +12,24 @@ public class Route {
     @Id
     private String routeID;
 
-    private Date travelDate;
+    private String travelDate;
     public ArrayList<TrainStop> trainStops;
     private Train train;
 
-    public ArrayList<Integer> takenCompartmentSeats;
-    public ArrayList<Integer> takenNonCompartmentSeats;
 
-    public Route(Date travelDate, ArrayList<TrainStop> trainStops, Train train, ArrayList<Integer> takenCompartmentSeats, ArrayList<Integer> takenNonCompartmentSeats) {
+    public Route(String travelDate, ArrayList<TrainStop> trainStops, Train train) {
         this.travelDate = travelDate;
         this.trainStops = trainStops;
         this.train = train;
-        this.takenCompartmentSeats = takenCompartmentSeats;
-        this.takenNonCompartmentSeats = takenNonCompartmentSeats;
+
     }
 
 
-    public Date getTravelDate() {
+    public String getTravelDate() {
         return travelDate;
     }
 
-    public void setTravelDate(Date travelDate) {
+    public void setTravelDate(String travelDate) {
         this.travelDate = travelDate;
     }
 
@@ -52,19 +49,13 @@ public class Route {
         this.train = train;
     }
 
-    public ArrayList<Integer> getTakenCompartmentSeats() {
-        return takenCompartmentSeats;
-    }
-
-    public void setTakenCompartmentSeats(ArrayList<Integer> takenCompartmentSeats) {
-        this.takenCompartmentSeats = takenCompartmentSeats;
-    }
-
-    public ArrayList<Integer> getTakenNonCompartmentSeats() {
-        return takenNonCompartmentSeats;
-    }
-
-    public void setTakenNonCompartmentSeats(ArrayList<Integer> takenNonCompartmentSeats) {
-        this.takenNonCompartmentSeats = takenNonCompartmentSeats;
+    @Override
+    public String toString() {
+        return "Route{" +
+                "routeID='" + routeID + '\'' +
+                ", travelDate='" + travelDate + '\'' +
+                ", trainStops=" + trainStops +
+                ", train=" + train +
+                '}';
     }
 }

@@ -16,8 +16,8 @@ import org.springframework.http.converter.json.GsonHttpMessageConverter;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Service
 @RestController
@@ -28,12 +28,15 @@ public class TicketController {
     public TicketController(TicketLogic ticketLogic){
         this.ticketLogic=ticketLogic;
     }
+
     @CrossOrigin(origins="http://localhost:3000")
     @RequestMapping(path="/ticket",method= RequestMethod.POST)
+
     public ResponseEntity<String> buyTicket(@RequestBody Ticket ticket){
-        System.out.println(ticket.toString());
-        Ticket reservedTicket=ticketLogic.reserveTicket(ticket);
-        if(reservedTicket.getSeatNo()==null){
+
+        boolean reserveTicket =ticketLogic.reserveTicket(ticket);
+
+        if(!reserveTicket){
             return ResponseEntity.status(540).body("{Response:Ticket cannot be bought}");
         }
         return ResponseEntity.ok().body(new Gson().toJson(ticket));

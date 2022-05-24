@@ -35,7 +35,7 @@ public class RoutesController {
     @CrossOrigin(origins="http://localhost:3000")
     @RequestMapping("/add")
     public ResponseEntity<String> addConnection(@RequestBody Route route){
-        System.out.println(route.getTrainStops());
+        System.out.println(route.toString());
         if(!this.routesDBController.saveRoute(route)){
             return ResponseEntity.status(550).body("{Response:The route could not be added}");
         }

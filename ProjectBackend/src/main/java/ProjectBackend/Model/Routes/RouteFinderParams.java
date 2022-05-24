@@ -14,11 +14,11 @@ public class RouteFinderParams {
     private String lastStation;
     private String departureTime;
     private String arrivalTime;
-    private Date travelDate;
+    private String travelDate;
 
 
 
-    public RouteFinderParams(String routeID, String firstStation, String lastStation, String departureTime, String arrivalTime, Date travelDate) {
+    public RouteFinderParams(String routeID, String firstStation, String lastStation, String departureTime, String arrivalTime, String travelDate) {
         this.routeID = routeID;
         this.firstStation = firstStation;
         this.lastStation = lastStation;
@@ -67,11 +67,11 @@ public class RouteFinderParams {
         this.arrivalTime = arrivalTime;
     }
 
-    public Date getTravelDate() {
+    public String getTravelDate() {
         return travelDate;
     }
 
-    public void setTravelDate(Date travelDate) {
+    public void setTravelDate(String travelDate) {
         this.travelDate = travelDate;
     }
 

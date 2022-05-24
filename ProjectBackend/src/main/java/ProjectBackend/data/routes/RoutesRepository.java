@@ -17,14 +17,15 @@ import java.util.List;
 public interface RoutesRepository extends MongoRepository<Route ,String> {
 
     @Aggregation(pipeline={
+            "{$match:{'travelDate':?3}}",
             "{$unwind:'$trainStops'}",
             "{$match:{'trainStops.stationName':{$in:[?0,?1]}}}",
             "{$group:{_id:'$_id', firstStation:{$first:'$trainStops.stationName'},lastStation:{$last:'$trainStops.stationName'},departureTime:{$first:'$trainStops.departureTime'},arrivalTime:{$last:'$trainStops.arrivalTime'}}}",
-            "{$match:{'$expr':{'$lt':['$departureTime','$arrivalTime']}}}",
-            "{$match:{'$expr':{'$ne':['$departureTime',null]}}}",
-            "{$match:{'$expr':{'ne':['$arrivalTime',null]}}}"
-            })
-    List<RouteFinderParams> getRoutes(String startingCity, String endingCity, String departureTime, Date travelDate);
+            "{$match:{'firstStation':?0}}",
+            "{$match:{'lastStation':?1}}",
+            "{$match:{'$expr':{'$gt':['$departureTime',?2]}}}"
+    })
+    List<RouteFinderParams> getRoutes(String startingCity, String endingCity, String departureTime, String travelDate);
 
-    public List<Route> getRoutesByRouteID(String routeID);
+    Route getRoutesByRouteID(String routeID);
 }

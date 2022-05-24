@@ -37,7 +37,7 @@ public class RoutesDBController {
                 params.getTravelDate());
     }
 
-    public List<Route> getRouteById(String routeId){
+    public Route getRouteById(String routeId){
         return this.routesRepository.getRoutesByRouteID(routeId);
     }
 }

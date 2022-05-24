@@ -11,7 +11,8 @@ public class Ticket {
     private String startingStation;
     private String endingStation;
     private Discount discount;
-    private Date ticketDate;
+    private BigDecimal price;
+    private String ticketDate;
     private String travelerName;
     private String travelerSurname;
     private String travelerEmail;
@@ -23,11 +24,20 @@ public class Ticket {
     private String travelerZip;
     private String travelerAddress;
 
-    public Ticket(String routeID, String startingStation, String endingStation, Discount discount, Date ticketDate, String travelerName, String travelerSurname, String travelerEmail, Integer userId, Integer seatNo, Boolean compartmentSeat, String travelerCountry, String travelerCity, String travelerZip, String travelerAddress) {
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public Ticket(String routeID, String startingStation, String endingStation, Discount discount, BigDecimal price, String ticketDate, String travelerName, String travelerSurname, String travelerEmail, Integer userId, Integer seatNo, Boolean compartmentSeat, String travelerCountry, String travelerCity, String travelerZip, String travelerAddress) {
         this.routeID = routeID;
         this.startingStation = startingStation;
         this.endingStation = endingStation;
         this.discount = discount;
+        this.price = price;
         this.ticketDate = ticketDate;
         this.travelerName = travelerName;
         this.travelerSurname = travelerSurname;
@@ -76,11 +86,11 @@ public class Ticket {
         this.discount = discount;
     }
 
-    public Date getTicketDate() {
+    public String getTicketDate() {
         return ticketDate;
     }
 
-    public void setTicketDate(Date ticketDate) {
+    public void setTicketDate(String ticketDate) {
         this.ticketDate = ticketDate;
     }
 

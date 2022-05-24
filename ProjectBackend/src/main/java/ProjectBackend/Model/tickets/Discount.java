@@ -6,33 +6,24 @@ import java.math.BigDecimal;
 
 @Document
 public class Discount {
-    public KnownDiscountName discountName;
+    public String discountName;
+    public KnownDiscountName discountType;
     public BigDecimal discountValue;
 
-    public Discount(KnownDiscountName discountName) {
+    public Discount(String discountName) {
         this.discountName = discountName;
-        this.discountValue = discountName.getDiscount();
-    }
-    public Discount(String discountName){
-        this.discountName=KnownDiscountName.valueOf(discountName);
-        this.discountValue=this.discountName.getDiscount();
-    }
-    public Discount(KnownDiscountName discountName, BigDecimal discountValue){
-        this.discountName=discountName;
-        this.discountValue=discountValue;
-    }
-    public Discount(){
-
+        this.discountType = KnownDiscountName.getDiscountType(discountName);
+        this.discountValue = discountType.getDiscount();
     }
 
-    public KnownDiscountName getDiscountName() {
-        return discountName;
-    }
-
-    public void setDiscountName(KnownDiscountName discountName) {
-        this.discountName = discountName;
-    }
-
+//    public KnownDiscountName getDiscountName() {
+//        return discountName;
+//    }
+//
+//    public void setDiscountName(KnownDiscountName discountName) {
+//        this.discountName = discountName;
+//    }
+//
     public BigDecimal getDiscountValue() {
         return discountValue;
     }
