@@ -5,7 +5,7 @@
 
 Authors:<br>
    - Przemysław Kociuba <br>
-   - Tomasz Kajda
+   - Tomasz Kajda<br>
 Wykorzystane technologie:<br>
    - Java (Spring, Hibernate)
    - React
