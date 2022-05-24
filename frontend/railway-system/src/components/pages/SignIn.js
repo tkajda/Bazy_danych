@@ -8,7 +8,7 @@ function SignIn({isLoggedIn,onLogIn}) {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  
+  const [msg, setMsg]=useState("zaloguj sie")
   const signIn = () => {
     axios.post("http://localhost:8080/login/submit",
     {
@@ -20,10 +20,12 @@ function SignIn({isLoggedIn,onLogIn}) {
     if(response.status==200){
       console.log(isLoggedIn)
       onLogIn(response.data)
+      setMsg("Zalogowano")
     }
     
   }).catch(error =>{
     console.log(error)
+    setMsg("Nie udalo sie zalogowac")
   })
   }
 
@@ -53,6 +55,8 @@ function SignIn({isLoggedIn,onLogIn}) {
             
 
             <button type="button" onClick={signIn} >Sign up</button>
+            <br></br>
+            {msg}
 
           </form>
 

@@ -14,7 +14,7 @@ function SignUp() {
   const [city, setCity] = useState('');
   const [zip, setZip] = useState('');
   const [address, setAddress] = useState('');
-
+  const [serverMsg,setServerMsg]=useState("info");
 
   const registerUser = () =>{
         axios.post("http://localhost:8080/register/submit",
@@ -31,7 +31,10 @@ function SignUp() {
         }
       ).then(response =>{
         console.log(response)
+        setServerMsg("Dodano uzytkownika")
+        setTimeout(() => {document.location.reload()},2000)
       }).catch(error =>{
+        setServerMsg("Uzytkownik juz istnieje")
         console.log(error)
       })
   }
@@ -124,11 +127,14 @@ function SignUp() {
               onChange={(e) => setAddress(e.target.value)}
               required/>
             </span>
+            
 
             <button type="button" onClick={registerUser} >Sign up</button>
 
           </form>
-
+          <div class="serverMsg">
+            {serverMsg}
+          </div>
         </div>
       </div>
     </div>

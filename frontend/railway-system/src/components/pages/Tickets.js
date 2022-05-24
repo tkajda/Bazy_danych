@@ -104,12 +104,6 @@ function Tickets({isLoggedIn, changeRoute}) {
               required/>
             </span>
 
-            <select 
-              value={type}
-              onChange={(e) => setType(e.target.value)}>
-              <option value="Przedzialowy">Przedzialowy</option>
-              <option value="Bezprzedzialowy">Bezprzedzialowy</option>
-            </select>
             <button type="button" onClick={fetchRoutes} >Szukaj</button>
 
           </form>

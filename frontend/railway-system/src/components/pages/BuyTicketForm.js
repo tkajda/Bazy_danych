@@ -1,27 +1,40 @@
 import React from 'react'
 import bg from "../resources/idylla.jpg"
+import '../styles/tickets_style.css'
 import {useState} from 'react';
 import axios from 'axios'
 import {connect} from 'react-redux';
 import {useLocation} from 'react-router-dom'
 
 function SignUp({authData,route}) {
-  const [email, setEmail] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [country, setCountry] = useState('');
-  const [city, setCity] = useState('');
-  const [zip, setZip] = useState('');
-  const [address, setAddress] = useState('');
+  
+  const [email, setEmail] = useState(() => {if(authData.isLoggedIn){return authData.authData.userAuthData.email} else{ return ""}});
+  const [firstName, setFirstName] = useState(() => {if(authData.isLoggedIn){return authData.authData.userAuthData.firstName} else{ return ""}});
+  const [lastName, setLastName] = useState(() => {if(authData.isLoggedIn){return authData.authData.userAuthData.lastName} else{ return ""}});
+  const [country, setCountry] = useState(() => {if(authData.isLoggedIn){return authData.authData.userAuthData.country} else{ return ""}});
+  const [city, setCity] = useState(() => {if(authData.isLoggedIn){return authData.authData.userAuthData.city} else{ return ""}});
+  const [zip, setZip] = useState(() => {if(authData.isLoggedIn){return authData.authData.userAuthData.zip} else{ return ""}});
+  const [address, setAddress] = useState(() => {if(authData.isLoggedIn){return authData.authData.userAuthData.address} else{ return ""}});
   const [compartment, setCompartment]=useState(false);
   const [discount, setDiscount]=useState("STUDENT")
+  const [msg,setMsg]=useState("Wpisz dane")
+  
   var buyTicket;
-  let hejka=authData
-  let location=useLocation();
+  console.log(authData)
   if(authData.isLoggedIn){
       
       console.log(authData)
       console.log("TU")
+      
+      /*let userData=authData.authData.userAuthData
+      setFirstName(userData.firstName)
+      setLastName(userData.lastName)
+      setEmail(userData.email)
+      setCity(userData.city)
+      setCountry(userData.country)
+      setZip(userData.zip)
+      setAddress(userData.address)*/
+
       buyTicket = () =>{
         axios.post("http://localhost:8080/routes/ticket",
         {
@@ -40,8 +53,11 @@ function SignUp({authData,route}) {
           travelerAddress:address
         }
       ).then(response =>{
+        setMsg("Kupiono bilet")
         console.log(response)
+
       }).catch(error =>{
+        setMsg("Brak miejsc")
         console.log(error)
       })
     }
@@ -51,7 +67,7 @@ function SignUp({authData,route}) {
     console.log("TU2")
     buyTicket = () =>{
       
-      console.log(route.route.routeID)
+      console.log(route)
       console.log(route.route.firstStation)
       console.log(route.route.lastStation)
       axios.post("http://localhost:8080/routes/ticket",
@@ -70,11 +86,21 @@ function SignUp({authData,route}) {
         travelerAddress:address
       }
     ).then(response =>{
+      window.alert("Udalo ci sie kupic bilet")
+      setMsg("Udalo sie kupic bilet")
       console.log(response)
     }).catch(error =>{
+      window.alert("Brak miejsc!");
+      setMsg("Brak miejsc w wybranym wagonie na wybrane polaczenie")
       console.log(error)
     })
 }
+  }
+  const handleChange = (ev) => {
+    setCompartment(ev.target.value);
+  }
+  const handleDiscountChange = (ev) => {
+    setDiscount(ev.target.value);
   }
   
   console.log(String(route.route.routeID))
@@ -153,26 +179,28 @@ function SignUp({authData,route}) {
 
             <span>              
             <label>Discount</label><br></br>
-            <input 
-              type="text"
-              value={discount}
-              onChange={(e) => setDiscount(e.target.value)}
-              required/>
+            <select value={discount} onChange={handleDiscountChange}>
+              <option value="NONE">none</option>
+              <option value="STUDENT">student</option>
+              <option value="WORKER">worker</option>
+              <option value="DISABILITY">disability</option>
+            </select>
             </span>
-
             <span>              
             <label>Compartment</label><br></br>
-            <input 
-              type="text"
-              value={compartment}
-              onChange={(e) => setCompartment(e.target.value)}
-              required/>
+            <select value={compartment} onChange={handleChange}>
+              <option value="true">true</option>
+              <option value="false">false</option>
+            </select>
             </span>
 
             <button type="button" onClick={buyTicket} >Buy ticket</button>
 
           </form>
 
+        </div>
+        <div className="msg">
+          {msg}
         </div>
       </div>
     </div>

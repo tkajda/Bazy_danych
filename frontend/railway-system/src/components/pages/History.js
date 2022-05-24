@@ -44,7 +44,8 @@ function History(authData) {
                 {ticket.travelerName}<br></br>
                 {ticket.travelerSurname}<br></br>
                 Miejsce{ticket.seatNo}<br></br>
-                Przedzialowy:{String(ticket.compartmentSeat)}
+                Przedzialowy:{String(ticket.compartmentSeat)}<br></br>
+                Cena:{ticket.price}
                 <br></br><br></br>
               </div>
             ) ) 

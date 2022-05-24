@@ -5,15 +5,25 @@ import axios from 'axios'
 import bg from "../resources/idylla.jpg"
 
 class Przystanek {
-  constructor(station, arrivalTime, departureTime, id,compartmentSeats=0,nonCompartmentSeats=0) {
+  constructor(station, arrivalTime, departureTime, id,compartmentSeats=[],nonCompartmentSeats=[],distanceFromBeginning=0) {
     this.departureTime = departureTime
     this.arrivalTime = arrivalTime
     this.stationName = station
     this.id = id
     this.compartmentSeats = compartmentSeats
     this.nonCompartmentSeats =nonCompartmentSeats
+    this.distanceFromBeginning=distanceFromBeginning
   }
 }
+class Train {
+  constructor(number, compartmentSeats, nonCompartmentSeats) {
+    this.nonCompartmentSeats = nonCompartmentSeats
+    this.number = number;
+    this.compartmentSeats = compartmentSeats
+  }
+}
+
+
 
 
 function AddRoute() {
@@ -36,14 +46,14 @@ function AddRoute() {
   const [stopDeparture,  setStopDeparture] = useState('');
   const [compartmentSeats,  setCompartmentSeats] = useState('');
   const [nonCompartmentSeats,  setNonCompartmentSeats] = useState('');
-
-
+  const [distanceFromBeginning, setDistanceFromBeginning] = useState('');
+  const [pathLength,setPathLength]=useState('');
 
   const [stops,setStops] = useState([]);
 
   const addStop = (e) => {
     e.preventDefault();
-    const stop = new Przystanek(stopName, stopArrival, stopDeparture, stops.length+1, compartmentSeats,nonCompartmentSeats);
+    const stop = new Przystanek(stopName, stopArrival, stopDeparture, stops.length+1, [],[],distanceFromBeginning);
 
     const newStops = [...stops, stop]
     setStops(newStops);
@@ -51,29 +61,31 @@ function AddRoute() {
 
   const postRouteToServer = (e) => {
     e.preventDefault();
-    const firstStop = new Przystanek(station, mainArrivalTime, mainDepartureTime, 0, compartmentSeats,nonCompartmentSeats);  
-    const destinationStop = new Przystanek(destination, mainArrivalTime, mainArrivalTime, stops.length+2, 0, 0)
+    const firstStop = new Przystanek(station, mainArrivalTime, mainDepartureTime, 0, [],[]);  
+    const destinationStop = new Przystanek(destination, mainArrivalTime, mainArrivalTime, stops.length+2, [], [],pathLength)
     const finalStops = [firstStop, ...stops, destinationStop]
-    
+    const Train1 = new Train(trainNumber,compartmentSeats, nonCompartmentSeats)
     setStops(finalStops);
     console.log(finalStops)
+    console.log({
+      "travelDate": date,
+      "trainStops": finalStops,
+      "train": Train1,
+    })
     axios.post('http://localhost:8080/routes/add' ,
     {
-      "travelData": date,
+      "travelDate": date,
       "trainStops": finalStops,
-      "train": trainNumber,
-      "station": station,
-      "destination": destination,
-      "departureTime": mainDepartureTime,
-      "arrivalTime": mainArrivalTime,
-
+      "train": Train1,
     })
-    .then( res => console.log(res))
+    .then( res => {console.log(res);
+      document.location.reload();})
     .catch(error => {
       console.log(error);
     });
     console.log('post request sent');
-    document.location.reload();
+    
+    
   }
 
 
@@ -153,6 +165,14 @@ function AddRoute() {
                 onChange={(e) => setMAT(e.target.value)}
                 required/>
             </span>
+            <span>
+              <label>Dlugosc trasy</label>
+              <input 
+                type="number"
+                value={pathLength}
+                onChange={(e) => setPathLength(e.target.value)}
+                required/>
+            </span>
 
             </form>
         </div>
@@ -185,6 +205,15 @@ function AddRoute() {
                     onChange={(e) => setStopDeparture(e.target.value)}
                     required/>
                   </span><br></br>
+                  <span>
+                  <label>Odleglosc od początku:</label>
+                  <input 
+                    type="number"
+                    value={distanceFromBeginning}
+                    onChange={(e) => setDistanceFromBeginning(e.target.value)}
+                    required/>
+                  </span><br></br>
+                  
                 <button className="button-1" onClick={(e)=>{addStop(e)}}>Dodaj przystanek</button>
 
                 </form>
