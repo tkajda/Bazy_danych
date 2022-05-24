@@ -10,7 +10,7 @@
 - Tomasz Kajda
 ---
 ### `Funkcjonalność: `
-- Możliwość wyszukania najszybszego połączenia pomiędzy wybranymi miastami
+- Możliwość wyszukania zaplanowanych połączeń pomiędzy wybranymi miastami
 - Możliwość zakupu biletu przy uwzględnieniu rodzaju wagonu (przedziałowy/bez przedziałów)
 - Możliwość rejestracji użytkownika, jak i zakupu bez rejestracji
 - W przypadku rejestracji, możliwość wglądu w historię swoich biletów
