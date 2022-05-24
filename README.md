@@ -6,7 +6,8 @@
 Authors:<br>
    - Przemysław Kociuba <br>
    - Tomasz Kajda<br>
-Wykorzystane technologie:<br>
+   - 
+### Wykorzystane technologie
    - Java (Spring, Hibernate)
    - React
    - PostgreSQL
